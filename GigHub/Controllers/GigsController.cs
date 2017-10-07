@@ -42,7 +42,12 @@ namespace GigHub.Controllers
             {
                 //Set the foreign key and its nav will be set
                 ArtistId = User.Identity.GetUserId(),
-                DateTime = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
+
+                //The controller should be responsible for formatting the data
+                //The controller is mainly the manager for the process
+                //DateTime = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
+
+                DateTime = viewModel.DateTime,
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };
