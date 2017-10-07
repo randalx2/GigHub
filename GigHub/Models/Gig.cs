@@ -7,8 +7,12 @@ namespace GigHub.Models
     {
         public int Id { get; set; } 
 
-        [Required]
         public ApplicationUser Artist { get; set; }
+
+        //Add a Foreing Key to reduce db calls
+        //This is a string since in the ApplicationUser class the user id is a string and not int
+        [Required]
+        public string ArtistId { get; set; }    
 
         public DateTime DateTime { get; set; }
 
@@ -17,7 +21,10 @@ namespace GigHub.Models
         public string Venue { get; set; }   
 
         //Navigation Property
+        public Genre Genre { get; set; }
+
+        //Foreign Key for Genre
         [Required]
-        public Genre Genre { get; set; }    
+        public byte GenreId { get; set; }   
     }
 }
