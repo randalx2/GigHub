@@ -1,7 +1,6 @@
 ﻿using GigHub.Models;
 using GigHub.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -38,6 +37,16 @@ namespace GigHub.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel viewModel)
         {
+            //If model state is not valid stay on this page
+            if (!ModelState.IsValid)
+            {
+                //Set the Genres Property of the view model before returning it
+                //This is because we are using HttpPost and not HttpGet Create
+                viewModel.Genres = _context.Genres.ToList();
+
+                return View("Create", viewModel);
+            }
+                
             var gig = new Gig
             {
                 //Set the foreign key and its nav will be set
@@ -45,9 +54,9 @@ namespace GigHub.Controllers
 
                 //The controller should be responsible for formatting the data
                 //The controller is mainly the manager for the process
-                //DateTime = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
+                //GetDateTime = GetDateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
 
-                DateTime = viewModel.DateTime,
+                DateTime = viewModel.GetDateTime(),
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };

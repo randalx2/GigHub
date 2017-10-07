@@ -1,17 +1,26 @@
-﻿using System;
-using GigHub.Models;
+﻿using GigHub.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GigHub.ViewModels
 {
     public class GigFormViewModel
     {
+        [Required]
         public string Venue { get; set; }
+
+        [Required]
+        [FutureDate]
         public string Date { get; set; }
+
+        [Required]
+        [ValidTime]
         public string Time { get; set; }  
         
         //For drop down lists we need the numeric value of each option
         //This is meant to be the genre Id as stored in the database
+        [Required]
         public byte Genre { get; set; }  
 
         //Hold the list of Genres
@@ -19,9 +28,9 @@ namespace GigHub.ViewModels
         public IEnumerable<Genre> Genres { get; set; }
 
         //Using a custom get method for this property
-        public DateTime DateTime
+        public DateTime GetDateTime()
         {
-            get { return DateTime.Parse(string.Format("{0} {1}", Date, Time)); }
+            return DateTime.Parse(string.Format("{0} {1}", Date, Time));
         }
     }
 }
