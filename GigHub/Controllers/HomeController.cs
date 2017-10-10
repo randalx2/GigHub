@@ -23,8 +23,10 @@ namespace GigHub.Controllers
         {
             //Also include the navigation property ==> ie artists associated with each gig
             //Also filter only for upcoming Gigs in the future
+            //Also include the genre
             var upcomingGigs = _context.Gigs
                 .Include(g => g.Artist)
+                .Include(g => g.Genre)
                 .Where(g => g.DateTime > DateTime.Now);
 
             return View(upcomingGigs);
