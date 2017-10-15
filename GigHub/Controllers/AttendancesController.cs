@@ -1,4 +1,5 @@
-﻿using GigHub.Models;
+﻿using GigHub.Dtos;
+using GigHub.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;
@@ -17,7 +18,7 @@ namespace GigHub.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Attend([FromBody] int gigId)
+        public IHttpActionResult Attend(AttendanceDto dto)
         {
             //Get the Id of the currently logged in user from the user object ==> better security
 
@@ -25,13 +26,13 @@ namespace GigHub.Controllers
             var userId = User.Identity.GetUserId();
 
             //Check for duplicate attendances for the current user for the given gig
-            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == gigId))
+            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == dto.GigId))
                 return BadRequest("The attendance already exists.");
 
             //Create the attendance object to pass
             var attendance = new Attendance
             {
-                GigId = gigId,
+                GigId = dto.GigId,
                 AttendeeId = userId
             };
 
