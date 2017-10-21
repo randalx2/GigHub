@@ -30,9 +30,14 @@ namespace GigHub.Models
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Following>()
-                .HasRequired(f => f.Artist)
-                .WithMany()
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Followers)
+                .WithRequired(a => a.Artist)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Artists)
+                .WithRequired(a => a.Follower)
                 .WillCascadeOnDelete(false);
 
             //Must call this at end of method

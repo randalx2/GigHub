@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201710212121555_AddFollowingTable.Designer.cs">
       <DependentUpon>201710212121555_AddFollowingTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710212232015_CorrectedCascadeDeleteForFollowers.cs" />
+    <Compile Include="Migrations\201710212232015_CorrectedCascadeDeleteForFollowers.Designer.cs">
+      <DependentUpon>201710212232015_CorrectedCascadeDeleteForFollowers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -365,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710212121555_AddFollowingTable.resx">
       <DependentUpon>201710212121555_AddFollowingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710212232015_CorrectedCascadeDeleteForFollowers.resx">
+      <DependentUpon>201710212232015_CorrectedCascadeDeleteForFollowers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
