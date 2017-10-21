@@ -6,6 +6,8 @@ using System.Web.Http;
 
 namespace GigHub.Controllers
 {
+    //Only allow authenticated users to use this
+    [Authorize]
     public class FollowingsController : ApiController
     {
         private ApplicationDbContext _context;
