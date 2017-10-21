@@ -15,6 +15,8 @@ namespace GigHub.Controllers
             _context = new ApplicationDbContext();
         }
 
+        //api/followings
+        [HttpPost]
         public IHttpActionResult Follow(FollowingDto dto)
         {
             //Get the Id of the currently logged in user from the user object ==> better security
