@@ -1,9 +1,8 @@
 ﻿using GigHub.Models;
+using GigHub.ViewModels;
 using System;
-
 //To use lamda expressions for eager loading
 using System.Data.Entity;
-
 using System.Linq;
 using System.Web.Mvc;
 
@@ -29,7 +28,13 @@ namespace GigHub.Controllers
                 .Include(g => g.Genre)
                 .Where(g => g.DateTime > DateTime.Now);
 
-            return View(upcomingGigs);
+            var viewModel = new HomeViewModel
+            {
+                UpcomingGigs = upcomingGigs,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult About()
