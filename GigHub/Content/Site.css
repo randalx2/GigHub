@@ -28,6 +28,14 @@ span.field-validation-error {
     font-weight: bold;
 }
 
+/*Custom Margin Offsets*/
+.voffset { margin: 2px;}
+.voffset1 { margin: 5px;}
+.voffset2 { margin: 10px;}
+.voffset3 { margin: 20px;}
+.voffset4 { margin: 40px;}
+.voffset4 { margin: 80px;}
+
 /**************Bootstrap Overrides**************************/
 .navbar-inverse {
     background-color: #ff4343;
