@@ -66,10 +66,10 @@ namespace GigHub.Controllers
             var viewModel = new GigFormViewModel
             {
                 Genres = _context.Genres.ToList(),
-
+                Heading = "Add a Gig"
             };
 
-            return View(viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -84,14 +84,16 @@ namespace GigHub.Controllers
             //Get the list of Genres from the db
             var viewModel = new GigFormViewModel
             {
+                Heading = "Edit a Gig",
+                Id = gig.Id,
                 Genres = _context.Genres.ToList(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
                 Genre = gig.GenreId,
-                Venue = gig.Venue
+                Venue = gig.Venue,
             };
 
-            return View("Create", viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -106,7 +108,7 @@ namespace GigHub.Controllers
                 //This is because we are using HttpPost and not HttpGet Create
                 viewModel.Genres = _context.Genres.ToList();
 
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
                 
             var gig = new Gig
@@ -125,6 +127,39 @@ namespace GigHub.Controllers
 
             //Add this Gig Object to our context
             _context.Gigs.Add(gig);
+
+            //Save changes to the db
+            _context.SaveChanges();
+
+            //After adding a successful gig redirect to user to the home page
+            return RedirectToAction("Mine", "Gigs");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel viewModel)
+        {
+            //If model state is not valid stay on this page
+            if (!ModelState.IsValid)
+            {
+                //Set the Genres Property of the view model before returning it
+                //This is because we are using HttpPost and not HttpGet Create
+                viewModel.Genres = _context.Genres.ToList();
+
+                return View("GigForm", viewModel);
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            var gig = (from g in _context.Gigs
+                       where g.Id == viewModel.Id && g.ArtistId == userId
+                       select g).Single();
+
+            //Update the Gig properties
+            gig.Venue = viewModel.Venue;
+            gig.DateTime = viewModel.GetDateTime();
+            gig.GenreId = viewModel.Genre;
 
             //Save changes to the db
             _context.SaveChanges();
