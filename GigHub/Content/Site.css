@@ -94,8 +94,8 @@ h6,
 }
 
 .form-control {
+    height: 44px;
     font-size: 17px;
-    padding: 20px 15px;
     -ms-border-radius: 9px;
     border-radius: 9px;
 }
